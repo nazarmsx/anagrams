@@ -1,9 +1,25 @@
-// @ts-check
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsparser from "@typescript-eslint/parser";
 
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+export default [
+  {
+    files: ["**/*.ts"],
+    ignores: ["tests/*.ts"],
+    languageOptions: {
+      parser: tsparser,
+      sourceType: "module",
+    },
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
-);
+    plugins: {
+      "@typescript-eslint": tseslint
+    },
+
+    rules: {
+      ...tseslint.configs.recommended.rules,
+      "@typescript-eslint/no-unused-vars": "warn",
+      "no-console": "warn",
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"],
+    },
+  },
+];
